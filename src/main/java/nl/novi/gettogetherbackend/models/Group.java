@@ -16,7 +16,7 @@ public class Group {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User creator;
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "groups")
     private List<User> users;
 
     public Group() {

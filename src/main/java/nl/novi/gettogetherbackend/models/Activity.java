@@ -16,7 +16,7 @@ public class Activity {
     @NotBlank(message = "Added by cannot be empty")
     private String addedBy;
 
-    private int votes;
+    private int votes = 0 ;
 
     @ManyToOne
     @JoinColumn(name = "weekend_id", referencedColumnName = "id")
