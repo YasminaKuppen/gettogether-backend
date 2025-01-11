@@ -27,6 +27,8 @@ public class Weekend {
     @OneToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
+    @OneToMany(mappedBy = "weekend", cascade = CascadeType.ALL)
+    private List<Activity> activities;
 
     public Weekend() {
     }
@@ -78,4 +80,19 @@ public class Weekend {
         this.id = id;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
 }
