@@ -1,6 +1,7 @@
 package nl.novi.gettogetherbackend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "activities")
@@ -8,9 +9,13 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Title cannot be empty")
     private String title;
+    @NotBlank(message = "Description cannot be empty")
     private String description;
+    @NotBlank(message = "Added by cannot be empty")
     private String addedBy;
+
     private int votes;
 
     @ManyToOne
@@ -20,11 +25,10 @@ public class Activity {
     public Activity() {
     }
 
-    public Activity(String title, String description, String addedBy, int votes) {
+    public Activity(String title, String description, String addedBy) {
         this.title = title;
         this.description = description;
         this.addedBy = addedBy;
-        this.votes = votes;
     }
 
     public Long getId() {
