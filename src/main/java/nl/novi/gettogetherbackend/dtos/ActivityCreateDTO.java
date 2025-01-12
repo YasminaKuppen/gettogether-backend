@@ -11,7 +11,7 @@ public class ActivityCreateDTO {
     private String description;
     @NotBlank(message = "Added by cannot be empty")
     private String addedBy;
-//    private int votes;
+    private int votes;
 
 
     public String getTitle() {
@@ -38,12 +38,12 @@ public class ActivityCreateDTO {
         this.addedBy = addedBy;
     }
 
-//    public int getVotes() {
-//        return votes;
-//    }
+    public int getVotes() {
+        return votes;
+    }
 
-//    public void setVotes(int votes) {
-//        this.votes = votes;
-//    }
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
 
 }
