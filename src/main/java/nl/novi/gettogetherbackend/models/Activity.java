@@ -16,7 +16,7 @@ public class Activity {
     @NotBlank(message = "Added by cannot be empty")
     private String addedBy;
 
-    private int votes = 0 ;
+    private Integer votes = 0 ;
 
     @ManyToOne
     @JoinColumn(name = "weekend_id", referencedColumnName = "id")
@@ -63,11 +63,11 @@ public class Activity {
         this.addedBy = addedBy;
     }
 
-    public int getVotes() {
+    public Integer getVotes() {
         return votes;
     }
 
-    public void setVotes(int votes) {
+    public void setVotes(Integer votes) {
         this.votes = votes;
     }
 

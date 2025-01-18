@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -68,10 +69,17 @@ public class ActivityController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String addedBy,
-            @RequestParam(required = false) int votes
+            @RequestParam(required = false) Integer votes
     ) {
 
         return ResponseEntity.ok(ActivityMapper.toResponseDTOList(activityService.getActivities(title, description, addedBy, votes)));
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Activity>> findById(
+            @PathVariable Long id) {
 
+        Optional<Activity> responseDTO= activityService.findById(id);
+
+        return ResponseEntity.ok(responseDTO);
+    }
 }
