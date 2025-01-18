@@ -7,7 +7,7 @@ public class ActivityResponseDTO {
     private String description;
     private String addedBy;
     private Long id;
-    private int votes;
+    private Integer votes;
 
     public Long getId() {
         return id;
@@ -41,11 +41,11 @@ public class ActivityResponseDTO {
         this.addedBy = addedBy;
     }
 
-    public int getVotes() {
+    public Integer getVotes() {
         return votes;
     }
 
-    public void setVotes(int votes) {
+    public void setVotes(Integer votes) {
         this.votes = votes;
     }
 

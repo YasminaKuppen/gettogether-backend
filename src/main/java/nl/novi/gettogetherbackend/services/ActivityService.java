@@ -39,7 +39,7 @@ public class ActivityService {
            String title,
            String description,
            String addedBy,
-           int votes
+           Integer votes
     ) {
         List<Activity> activities;
         if (title != null) {
