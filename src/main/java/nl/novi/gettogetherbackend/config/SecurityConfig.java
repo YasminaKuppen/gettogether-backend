@@ -32,11 +32,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Publieke endpoints
                         .requestMatchers("/api-docs/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/login").permitAll() //aanpassing
+//                        .requestMatchers("/login").permitAll() //aanpassing
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/activity").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
 
-                        .requestMatchers(HttpMethod.GET, "/activity").hasAnyRole("USER", "ADMIN")
-                        // Beveiligde endpoints: Alleen voor admins
-                        .requestMatchers("/activity/**").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.GET, "/activity").hasAnyRole("USER", "ADMIN")
+//                        // Beveiligde endpoints: Alleen voor admins
+//                        .requestMatchers("/activity/**").hasRole("ADMIN")
 
                         // Andere verzoeken worden geweigerd
                         .anyRequest().denyAll()
