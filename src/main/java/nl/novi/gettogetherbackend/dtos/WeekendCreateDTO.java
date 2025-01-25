@@ -2,13 +2,15 @@ package nl.novi.gettogetherbackend.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import nl.novi.gettogetherbackend.models.User;
 
 import java.util.Date;
 
 
 public class WeekendCreateDTO {
 
-
+    @NotNull(message = "Name cannot be null")
+    private String name;
     @NotNull(message = "Date cannot be null")
     private Date date;
     @NotNull(message = "Time cannot be null")
@@ -18,6 +20,15 @@ public class WeekendCreateDTO {
 
     private int temperature;
 
+    private User addedBy;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Date getDate() {
         return date;
@@ -49,6 +60,13 @@ public class WeekendCreateDTO {
 
     public void setTemperature(int temperature) {
         this.temperature = temperature;
+    }
+
+    public User getAddedBy() {
+        return addedBy;
+    }
+    public void setAddedBy(User addedBy) {
+        this.addedBy = addedBy;
     }
 
 }

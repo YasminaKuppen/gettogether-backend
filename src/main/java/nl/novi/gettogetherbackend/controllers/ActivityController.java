@@ -3,6 +3,8 @@ package nl.novi.gettogetherbackend.controllers;
 import jakarta.validation.Valid;
 import nl.novi.gettogetherbackend.dtos.ActivityCreateDTO;
 import nl.novi.gettogetherbackend.models.Activity;
+import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Vote;
 import nl.novi.gettogetherbackend.services.ActivityService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +48,6 @@ public class ActivityController {
             activity.setTitle(activityDetails.getTitle());
             activity.setDescription(activityDetails.getDescription());
             activity.setAddedBy(activityDetails.getAddedBy());
-            activity.setVotes(activityDetails.getVotes());
             Activity updatedActivity = activityService.save(activity);
             return ResponseEntity.ok(ActivityMapper.toResponseDTO(updatedActivity));
         } else {
@@ -68,11 +69,10 @@ public class ActivityController {
     public ResponseEntity<List<ActivityResponseDTO>> getActivities(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String description,
-            @RequestParam(required = false) String addedBy,
-            @RequestParam(required = false) Integer votes
+            @RequestParam(required = false) User addedBy
     ) {
 
-        return ResponseEntity.ok(ActivityMapper.toResponseDTOList(activityService.getActivities(title, description, addedBy, votes)));
+        return ResponseEntity.ok(ActivityMapper.toResponseDTOList(activityService.getActivities(title, description, addedBy)));
     }
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Activity>> findById(

@@ -25,7 +25,6 @@ public class ActivityMapper {
         activity.setTitle(activityCreateDTO.getTitle());
         activity.setDescription(activityCreateDTO.getDescription());
         activity.setAddedBy(activityCreateDTO.getAddedBy());
-        activity.setVotes(activityCreateDTO.getVotes());
         return activity;
     }
 

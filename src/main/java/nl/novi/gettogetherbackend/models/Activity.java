@@ -3,6 +3,8 @@ package nl.novi.gettogetherbackend.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -13,19 +15,21 @@ public class Activity {
     private String title;
     @NotBlank(message = "Description cannot be empty")
     private String description;
-    @NotBlank(message = "Added by cannot be empty")
-    private String addedBy;
-
-    private Integer votes = 0 ;
+    @ManyToOne
+    @JoinColumn(name = "added_by")
+    private User addedBy;
 
     @ManyToOne
     @JoinColumn(name = "weekend_id", referencedColumnName = "id")
     private Weekend weekend;
 
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
+    private List<Vote> votes;
+
     public Activity() {
     }
 
-    public Activity(String title, String description, String addedBy) {
+    public Activity(String title, String description, User addedBy) {
         this.title = title;
         this.description = description;
         this.addedBy = addedBy;
@@ -55,20 +59,16 @@ public class Activity {
         this.description = description;
     }
 
-    public String getAddedBy() {
+    public User getAddedBy() {
         return addedBy;
     }
 
-    public void setAddedBy(String addedBy) {
+    public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
     }
 
-    public Integer getVotes() {
+    public List<Vote> getVotes() {
         return votes;
-    }
-
-    public void setVotes(Integer votes) {
-        this.votes = votes;
     }
 
     public Weekend getWeekend() {

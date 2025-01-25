@@ -33,7 +33,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         User user = UserMapper.toEntity(userCreateDTO);
-        User savedUser = userService.save(user);
+        User savedUser = userService.registerUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toResponseDTO(savedUser));
 
     }
@@ -44,8 +44,8 @@ public class UserController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setUsername(userDetails.getUsername());
-            user.setPassword(userDetails.getPassword());
             user.setEmail(userDetails.getEmail());
+            user.setRole(userDetails.getRole());
             User updatedUser = userService.save(user);
             return ResponseEntity.ok(UserMapper.toResponseDTO(updatedUser));
         } else {

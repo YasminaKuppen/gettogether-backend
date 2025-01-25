@@ -13,6 +13,7 @@ public class WeekendMapper {
     public static WeekendResponseDTO toResponseDTO(Weekend weekend) {
         var result = new WeekendResponseDTO();
         result.setId(weekend.getId());
+        result.setName(weekend.getName());
         result.setDate(weekend.getDate());
         result.setTime(weekend.getTime());
         result.setLocation(weekend.getLocation());
@@ -22,10 +23,12 @@ public class WeekendMapper {
 
     public static Weekend toEntity(WeekendCreateDTO weekendCreateDTO) {
         Weekend weekend = new Weekend();
+        weekend.setName(weekendCreateDTO.getName());
         weekend.setDate(weekendCreateDTO.getDate());
         weekend.setTime(weekendCreateDTO.getTime());
         weekend.setLocation(weekendCreateDTO.getLocation());
         weekend.setTemperature(weekendCreateDTO.getTemperature());
+        weekend.setAddedBy(weekendCreateDTO.getAddedBy());
         return weekend;
     }
 

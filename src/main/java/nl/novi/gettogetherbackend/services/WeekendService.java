@@ -1,5 +1,6 @@
 package nl.novi.gettogetherbackend.services;
 
+import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.repositories.WeekendRepository;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,8 @@ public class WeekendService {
             Date date,
             String time,
             String location,
-            int temperature
+            int temperature,
+            User addedBy
     ) {
         List<Weekend> weekends;
         weekends = weekendRepository.findAll();

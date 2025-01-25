@@ -1,13 +1,18 @@
 package nl.novi.gettogetherbackend.dtos;
 
+import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Vote;
+
+import java.util.List;
+
 public class ActivityResponseDTO {
 
 
     private String title;
     private String description;
-    private String addedBy;
+    private User addedBy;
     private Long id;
-    private Integer votes;
+    private List<Vote> votes;
 
     public Long getId() {
         return id;
@@ -33,19 +38,19 @@ public class ActivityResponseDTO {
         this.description = description;
     }
 
-    public String getAddedBy() {
+    public User getAddedBy() {
         return addedBy;
     }
 
-    public void setAddedBy(String addedBy) {
+    public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
     }
 
-    public Integer getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Integer votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 

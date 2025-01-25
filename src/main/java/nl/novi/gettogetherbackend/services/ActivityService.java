@@ -2,8 +2,9 @@ package nl.novi.gettogetherbackend.services;
 
 import nl.novi.gettogetherbackend.models.Activity;
 
+import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Vote;
 import nl.novi.gettogetherbackend.repositories.ActivityRepository;
-import nl.novi.gettogetherbackend.repositories.WeekendRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,10 +37,9 @@ public class ActivityService {
     }
 
     public List<Activity> getActivities(
-           String title,
-           String description,
-           String addedBy,
-           Integer votes
+            String title,
+            String description,
+            User addedBy
     ) {
         List<Activity> activities;
         if (title != null) {
