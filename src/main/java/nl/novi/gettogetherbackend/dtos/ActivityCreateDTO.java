@@ -1,6 +1,10 @@
 package nl.novi.gettogetherbackend.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Vote;
+
+import java.util.List;
 
 
 public class ActivityCreateDTO {
@@ -10,8 +14,8 @@ public class ActivityCreateDTO {
     @NotBlank(message = "Description cannot be empty")
     private String description;
     @NotBlank(message = "Added by cannot be empty")
-    private String addedBy;
-    private Integer votes;
+    private User addedBy;
+//    private List<Votes> votes;
 
 
     public String getTitle() {
@@ -30,20 +34,20 @@ public class ActivityCreateDTO {
         this.description = description;
     }
 
-    public String getAddedBy() {
+    public User getAddedBy() {
         return addedBy;
     }
 
-    public void setAddedBy(String addedBy) {
+    public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
     }
-
-    public Integer getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Integer votes) {
-        this.votes = votes;
-    }
+//
+//    public List<Votes> getVotes() {
+//        return votes;
+//    }
+//
+//    public void setVotes(List<Votes> votes) {
+//        this.votes = votes;
+//    }
 
 }

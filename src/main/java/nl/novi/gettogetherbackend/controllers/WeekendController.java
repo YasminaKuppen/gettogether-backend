@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import nl.novi.gettogetherbackend.dtos.WeekendCreateDTO;
 import nl.novi.gettogetherbackend.dtos.WeekendResponseDTO;
 import nl.novi.gettogetherbackend.mappers.WeekendMapper;
+import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.services.WeekendService;
 import org.springframework.http.HttpStatus;
@@ -41,10 +42,12 @@ public class WeekendController {
         Optional<Weekend> weekendOptional = weekendService.findById(id);
         if (weekendOptional.isPresent()) {
             Weekend weekend = weekendOptional.get();
+            weekend.setName(weekendDetails.getName());
             weekend.setDate(weekendDetails.getDate());
             weekend.setTime(weekendDetails.getTime());
             weekend.setLocation(weekendDetails.getLocation());
             weekend.setTemperature(weekendDetails.getTemperature());
+            weekend.setAddedBy(weekendDetails.getAddedBy());
             Weekend updatedWeekend = weekendService.save(weekend);
             return ResponseEntity.ok(WeekendMapper.toResponseDTO(updatedWeekend));
         } else {
@@ -64,15 +67,17 @@ public class WeekendController {
 
     @GetMapping
     public ResponseEntity<List<WeekendResponseDTO>> getWeekends(
+            @RequestParam(required = false) String name,
             @RequestParam(required = false) Date date,
             @RequestParam(required = false) String time,
             @RequestParam(required = false) String location,
-            @RequestParam(required = false) int temperature
+            @RequestParam(required = false) int temperature,
+            @RequestParam(required = false) User addedBy
        )
 
     {
 
-        return ResponseEntity.ok(WeekendMapper.toResponseDTOList(weekendService.getWeekends(date, time, location, temperature)));
+        return ResponseEntity.ok(WeekendMapper.toResponseDTOList(weekendService.getWeekends(date, time, location, temperature, addedBy)));
     }
 
 }

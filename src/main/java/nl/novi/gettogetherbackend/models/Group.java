@@ -8,23 +8,26 @@ import java.util.List;
 @Entity
 @Table(name = "groups")
 public class Group {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Type cannot be empty")
-    private String type;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User creator;
-    @ManyToMany(mappedBy = "groups")
-    private List<User> users;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "weekend_id", nullable = false)
+    private Weekend weekend;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
 
     public Group() {
     }
 
-    public Group(String type, User creator) {
-        this.type = type;
-        this.creator = creator;
+    public Group(Weekend weekend, User user) {
+        this.weekend = weekend;
+        this.user = user;
     }
 
     public Long getId() {
@@ -35,28 +38,20 @@ public class Group {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public User getCreator() {
-        return creator;
+    public Weekend getWeekend() {
+        return weekend;
     }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setWeekend(Weekend weekend) {
+        this.weekend = weekend;
     }
 
 

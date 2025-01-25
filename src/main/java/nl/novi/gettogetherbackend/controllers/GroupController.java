@@ -6,6 +6,7 @@ import nl.novi.gettogetherbackend.dtos.GroupResponseDTO;
 import nl.novi.gettogetherbackend.mappers.GroupMapper;
 import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.services.GroupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +43,8 @@ public class GroupController {
         Optional<Group> groupOptional = groupService.findById(id);
         if (groupOptional.isPresent()) {
             Group group = groupOptional.get();
-            group.setType(groupDetails.getType());
-            group.setCreator(groupDetails.getCreator());
+            group.setUser(groupDetails.getUser());
+            group.setWeekend(groupDetails.getWeekend());
             Group updatedGroup = groupService.save(group);
             return ResponseEntity.ok(GroupMapper.toResponseDTO(updatedGroup));
         } else {
@@ -63,13 +64,13 @@ public class GroupController {
 
     @GetMapping
     public ResponseEntity<List<GroupResponseDTO>> getGroups(
-            @RequestParam(required = false) String type,
-            @RequestParam(required = false) User creator
+            @RequestParam(required = false) Weekend weekend,
+            @RequestParam(required = false) User user
     )
 
     {
 
-        return ResponseEntity.ok(GroupMapper.toResponseDTOList(groupService.getGroups(type, creator)));
+        return ResponseEntity.ok(GroupMapper.toResponseDTOList(groupService.getGroups(weekend, user)));
     }
 
 }

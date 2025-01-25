@@ -2,6 +2,7 @@ package nl.novi.gettogetherbackend.services;
 
 import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.repositories.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -14,6 +15,13 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public User registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     public User save(User user) {

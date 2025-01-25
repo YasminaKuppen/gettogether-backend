@@ -3,28 +3,30 @@ package nl.novi.gettogetherbackend.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Weekend;
 
 public class GroupCreateDTO {
-    @NotBlank(message = "Type cannot be empty")
-    private String type;
-    private User creator;
 
+    private Long id;
+    private User user;
+    private Weekend weekend;
 
-    public String getType() {
-        return type;
+    public Long getId() {
+        return id;
     }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public User getCreator() {
-        return creator;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public User getUser() {
+        return user;
     }
-
-
+    public void setWeekend(Weekend weekend) {
+        this.weekend = weekend;
+    }
+    public Weekend getWeekend() {
+        return weekend;
+    }
 }

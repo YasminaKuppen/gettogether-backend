@@ -1,6 +1,7 @@
 package nl.novi.gettogetherbackend.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
@@ -22,16 +23,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
+    @ColumnDefault("USER")
     private String role;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_groups", // Naam van de join-tabel
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id")
-    )
-    private List<Group> groups;
 
     public User() {
     }
@@ -40,7 +34,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = "USER";
     }
 
     public Long getId() {
@@ -84,11 +77,11 @@ public class User {
         this.role = role;
     }
 
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
+//    public List<Group> getGroups() {
+//        return groups;
+//    }
+//
+//    public void setGroups(List<Group> groups) {
+//        this.groups = groups;
+//    }
 }

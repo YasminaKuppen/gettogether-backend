@@ -12,8 +12,7 @@ public class UserCreateDTO {
     private String email;
     @NotBlank(message = "Password cannot be empty")
     private String password;
-    private String role = "USER";
-
+    private String role;
 
     public String getUsername() {
         return username;
@@ -39,4 +38,11 @@ public class UserCreateDTO {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

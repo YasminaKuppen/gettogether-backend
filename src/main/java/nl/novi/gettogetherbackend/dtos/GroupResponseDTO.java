@@ -1,11 +1,14 @@
 package nl.novi.gettogetherbackend.dtos;
 
 import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Weekend;
+
+import java.util.List;
 
 public class GroupResponseDTO {
     private Long id;
-    private String type;
-    private User creator;
+    private User user;
+    private Weekend weekend;
 
     public Long getId() {
         return id;
@@ -15,20 +18,19 @@ public class GroupResponseDTO {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public User getUser() {
+        return user;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public Weekend getWeekend() {
+        return weekend;
     }
 
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setWeekend(Weekend weekend) {
+        this.weekend = weekend;
     }
 
 
