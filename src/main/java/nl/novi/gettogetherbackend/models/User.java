@@ -1,14 +1,21 @@
 package nl.novi.gettogetherbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +33,8 @@ public class User {
     @ColumnDefault("USER")
     private String role;
 
+    @ManyToMany(mappedBy = "users")
+    private Set<Group> groups = new HashSet<>();
 
     public User() {
     }
@@ -60,13 +69,17 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        //BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.password = password; //encoder.encode(password);
+        this.password = password;
     }
 
     public String getRole() {
@@ -77,11 +90,13 @@ public class User {
         this.role = role;
     }
 
-//    public List<Group> getGroups() {
-//        return groups;
-//    }
-//
-//    public void setGroups(List<Group> groups) {
-//        this.groups = groups;
-//    }
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+
 }

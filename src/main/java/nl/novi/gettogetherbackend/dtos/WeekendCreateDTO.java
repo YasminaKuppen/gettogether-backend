@@ -1,7 +1,9 @@
 package nl.novi.gettogetherbackend.dtos;
 
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
 
 import java.util.Date;
@@ -17,9 +19,11 @@ public class WeekendCreateDTO {
     private String time;
     @NotBlank(message = "Location cannot be empty")
     private String location;
+    private Group group;
 
     private int temperature;
 
+    @OneToOne
     private User addedBy;
 
     public String getName() {
@@ -67,6 +71,12 @@ public class WeekendCreateDTO {
     }
     public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
+    }
+    public Group getGroup() {
+        return group;
+    }
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
 }

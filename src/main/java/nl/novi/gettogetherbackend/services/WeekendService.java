@@ -1,5 +1,7 @@
 package nl.novi.gettogetherbackend.services;
 
+import nl.novi.gettogetherbackend.models.Activity;
+import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.repositories.WeekendRepository;
@@ -36,11 +38,14 @@ public class WeekendService {
     }
 
     public List<Weekend> getWeekends(
+            String name,
             Date date,
             String time,
             String location,
             int temperature,
-            User addedBy
+            User addedBy,
+            List<Group> groups,
+            List<Activity> activities
     ) {
         List<Weekend> weekends;
         weekends = weekendRepository.findAll();

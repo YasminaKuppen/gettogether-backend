@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
-
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -21,10 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Gebruiker niet gevonden: " + username));
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .roles(user.getRole())
-                .build();
+        return user;
+
     }
 }

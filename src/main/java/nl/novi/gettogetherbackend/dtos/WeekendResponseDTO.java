@@ -1,8 +1,12 @@
 package nl.novi.gettogetherbackend.dtos;
 
+import nl.novi.gettogetherbackend.models.Activity;
+import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 
 public class WeekendResponseDTO {
@@ -14,6 +18,8 @@ public class WeekendResponseDTO {
     private String location;
     private int temperature;
     private User addedBy;
+    private Set<Group> groups;
+    private List<Activity> activities;
 
 
     public Long getId() {
@@ -69,6 +75,22 @@ public class WeekendResponseDTO {
     }
     public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 
 }

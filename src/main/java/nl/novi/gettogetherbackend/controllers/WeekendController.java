@@ -1,10 +1,12 @@
 package nl.novi.gettogetherbackend.controllers;
 
 import jakarta.validation.Valid;
+import nl.novi.gettogetherbackend.dtos.WeekendResponseDTO;
 import nl.novi.gettogetherbackend.dtos.WeekendCreateDTO;
 import nl.novi.gettogetherbackend.dtos.WeekendResponseDTO;
 import nl.novi.gettogetherbackend.mappers.WeekendMapper;
-import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.mappers.WeekendMapper;
+import nl.novi.gettogetherbackend.models.*;
 import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.services.WeekendService;
 import org.springframework.http.HttpStatus;
@@ -64,6 +66,20 @@ public class WeekendController {
             return ResponseEntity.notFound().build();
         }
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<WeekendResponseDTO> getWeekendById(@PathVariable Long id) {
+        Optional<Weekend> weekendOptional = weekendService.findById(id);
+        if (weekendOptional.isPresent()) {
+            Weekend weekend = weekendOptional.get();
+            WeekendResponseDTO weekendResponseDTO = WeekendMapper.toResponseDTO(weekend);
+            return ResponseEntity.ok(weekendResponseDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    
 
     @GetMapping
     public ResponseEntity<List<WeekendResponseDTO>> getWeekends(
@@ -71,13 +87,18 @@ public class WeekendController {
             @RequestParam(required = false) Date date,
             @RequestParam(required = false) String time,
             @RequestParam(required = false) String location,
-            @RequestParam(required = false) int temperature,
-            @RequestParam(required = false) User addedBy
+            @RequestParam(required = false) Integer temperature,
+            @RequestParam(required = false) User addedBy,
+            @RequestParam(required = false) List<Group> groups,
+            @RequestParam(required = false) List<Activity> activities
        )
 
     {
-
-        return ResponseEntity.ok(WeekendMapper.toResponseDTOList(weekendService.getWeekends(date, time, location, temperature, addedBy)));
+        // Controleer of temperature null is, zo ja, gebruik een standaardwaarde
+        if (temperature == null) {
+            temperature = 20;  // Of kies een andere standaardwaarde
+        }
+        return ResponseEntity.ok(WeekendMapper.toResponseDTOList(weekendService.getWeekends(name, date, time, location, temperature, addedBy, groups, activities)));
     }
 
 }
