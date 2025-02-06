@@ -2,11 +2,16 @@ package nl.novi.gettogetherbackend.models;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "weekends")
@@ -30,14 +35,16 @@ public class Weekend {
     @JoinColumn(name = "addedBy")
     private User addedBy;
 
-//    @OneToOne
-//    @JoinColumn(name = "group_id", referencedColumnName = "id")
-//    private Group group;
+    @OneToMany(mappedBy = "weekend", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties
+    private Set<Group> groups = new HashSet<>();
+
     @OneToMany(mappedBy = "weekend", cascade = CascadeType.ALL)
     private List<Activity> activities;
 
-    @OneToMany(mappedBy = "weekend", cascade = CascadeType.ALL)
-    private List<Group> groups;
+//    @OneToMany(mappedBy = "weekend", cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<Group> groups;
 
     public Weekend() {
     }
@@ -98,14 +105,6 @@ public class Weekend {
         this.id = id;
     }
 
-//    public Group getGroup() {
-//        return group;
-//    }
-//
-//    public void setGroup(Group group) {
-//        this.group = group;
-//    }
-
     public List<Activity> getActivities() {
         return activities;
     }
@@ -122,11 +121,12 @@ public class Weekend {
         this.addedBy = user;
     }
 
-    public List<Group> getGroups() {
+    public Set<Group> getGroups() {
         return groups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public void setGroups(Set<Group> groups) {
         this.groups = groups;
     }
+
 }

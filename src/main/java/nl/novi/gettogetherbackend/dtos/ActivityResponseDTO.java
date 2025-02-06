@@ -2,6 +2,7 @@ package nl.novi.gettogetherbackend.dtos;
 
 import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.models.Vote;
+import nl.novi.gettogetherbackend.models.Weekend;
 
 import java.util.List;
 
@@ -10,7 +11,10 @@ public class ActivityResponseDTO {
 
     private String title;
     private String description;
+    private String location;
+    private Float costs;
     private User addedBy;
+    private Weekend weekend;
     private Long id;
     private List<Vote> votes;
 
@@ -38,6 +42,22 @@ public class ActivityResponseDTO {
         this.description = description;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Float getCosts() {
+        return costs;
+    }
+
+    public void setCosts(Float costs) {
+        this.costs = costs;
+    }
+
     public User getAddedBy() {
         return addedBy;
     }
@@ -52,6 +72,14 @@ public class ActivityResponseDTO {
 
     public void setVotes(List<Vote> votes) {
         this.votes = votes;
+    }
+
+    public Weekend getWeekend() {
+        return weekend;
+    }
+
+    public void setWeekend(Weekend weekend) {
+        this.weekend = weekend;
     }
 
 }

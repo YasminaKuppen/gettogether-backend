@@ -1,35 +1,39 @@
 package nl.novi.gettogetherbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "groups") // Ensure table name does not conflict with SQL reserved keywords
 public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "weekend_id", nullable = false)
-    private Weekend weekend;
+    private Long id; // Unique identifier for each group
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "weekend_id", nullable = false)
+    @JsonIgnore
+    private Weekend weekend;
 
+    @ManyToMany
+    @JoinTable(
+            name = "group_users",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @JsonIgnore
+    private Set<User> users = new HashSet<>(); // A group has multiple users
 
-    public Group() {
-    }
+    public Group() {}
 
-    public Group(Weekend weekend, User user) {
+    public Group(Weekend weekend) {
         this.weekend = weekend;
-        this.user = user;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -38,21 +42,23 @@ public class Group {
         this.id = id;
     }
 
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Weekend getWeekend() {
         return weekend;
     }
+
     public void setWeekend(Weekend weekend) {
         this.weekend = weekend;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
 
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
+    public void removeUser(User user) {
+        this.users.remove(user);
+    }
 }

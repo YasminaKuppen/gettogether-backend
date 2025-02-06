@@ -1,5 +1,6 @@
 package nl.novi.gettogetherbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,10 +15,12 @@ public class Vote {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "activity_id", nullable = false)
     private Activity activity;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

@@ -1,6 +1,9 @@
 package nl.novi.gettogetherbackend.dtos;
 
+import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
+
+import java.util.List;
 
 public class UserResponseDTO {
 
@@ -8,6 +11,7 @@ public class UserResponseDTO {
     private String username;
     private String email;
     private String role;
+    private List<Group> groups;
 
     public Long getId() {
         return id;
@@ -39,5 +43,13 @@ public class UserResponseDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 }

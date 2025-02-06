@@ -1,7 +1,12 @@
 package nl.novi.gettogetherbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -11,28 +16,47 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "Title cannot be empty")
     private String title;
+
     @NotBlank(message = "Description cannot be empty")
     private String description;
+
+    private String location;
+
+    @Min(0)
+    private Float costs;
+
+    @OneToOne
+    @JsonIgnoreProperties(value = {"contents", "contentsType"})
+    Image image;
+
     @ManyToOne
     @JoinColumn(name = "added_by")
+    @NotNull
     private User addedBy;
 
     @ManyToOne
-    @JoinColumn(name = "weekend_id", referencedColumnName = "id")
+    @JoinColumn(name = "weekend_id")
+    @JsonIgnore
+    @NotNull
     private Weekend weekend;
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
+    //@JsonIgnore
     private List<Vote> votes;
 
     public Activity() {
     }
 
-    public Activity(String title, String description, User addedBy) {
+    public Activity(String title, String description, String location, Float costs, User addedBy, Weekend weekend) {
         this.title = title;
         this.description = description;
+        this.location = location;
+        this.costs = costs;
         this.addedBy = addedBy;
+        this.weekend = weekend;
     }
 
     public Long getId() {
@@ -59,6 +83,23 @@ public class Activity {
         this.description = description;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Float getCosts() {
+        return costs;
+    }
+
+    public void setCosts(Float costs) {
+        this.costs = costs;
+    }
+
+
     public User getAddedBy() {
         return addedBy;
     }
@@ -78,4 +119,17 @@ public class Activity {
     public void setWeekend(Weekend weekend) {
         this.weekend = weekend;
     }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
 }
