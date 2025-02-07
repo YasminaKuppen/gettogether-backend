@@ -17,9 +17,7 @@ public class ActivityMapper {
         result.setDescription(activity.getDescription());
         result.setLocation(activity.getLocation());
         result.setCosts(activity.getCosts());
-        result.setAddedBy(activity.getAddedBy());
-        result.setWeekend(activity.getWeekend());
-        result.setVotes(activity.getVotes());
+        result.setVoteCount(activity.getVotes() != null ? activity.getVotes().size() : 0);
         return result;
     }
 
@@ -29,7 +27,6 @@ public class ActivityMapper {
         activity.setDescription(activityCreateDTO.getDescription());
         activity.setLocation(activityCreateDTO.getLocation());
         activity.setCosts(activityCreateDTO.getCosts());
-        activity.setAddedBy(activityCreateDTO.getAddedBy());
         activity.setWeekend(activityCreateDTO.getWeekend());
         return activity;
     }

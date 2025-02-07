@@ -18,7 +18,8 @@ public class WeekendMapper {
         result.setTime(weekend.getTime());
         result.setLocation(weekend.getLocation());
         result.setTemperature(weekend.getTemperature());
-        result.setGroups(weekend.getGroups());
+        result.setAddedBy(weekend.getAddedBy());
+        result.setAddedById(weekend.getAddedById());
         return result;
     }
 

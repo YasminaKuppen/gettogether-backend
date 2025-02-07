@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+// Checked
+
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
@@ -53,24 +55,6 @@ public class ActivityController {
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ActivityResponseDTO> updateActivity(@PathVariable Long id, @RequestBody Activity activityDetails) {
-        Optional<Activity> activityOptional = activityService.findById(id);
-        if (activityOptional.isPresent()) {
-            Activity activity = activityOptional.get();
-            activity.setTitle(activityDetails.getTitle());
-            activity.setDescription(activityDetails.getDescription());
-            activity.setLocation(activityDetails.getLocation());
-            activity.setCosts(activityDetails.getCosts());
-            activity.setAddedBy(activityDetails.getAddedBy());
-            activity.setWeekend(activityDetails.getWeekend());
-            Activity updatedActivity = activityService.save(activity);
-            return ResponseEntity.ok(ActivityMapper.toResponseDTO(updatedActivity));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteActivity(@PathVariable Long id) {
         var result = activityService.delete(id);
@@ -81,24 +65,23 @@ public class ActivityController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<ActivityResponseDTO>> getActivities(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String description,
-            @RequestParam(required = false) String location,
-            @RequestParam(required = false) Float costs,
-            @RequestParam(required = false) User addedBy,
-            @RequestParam(required = false) Weekend weekend,
-            @RequestParam(required = false) List<Vote> votes
-    ) {
-
-        return ResponseEntity.ok(ActivityMapper.toResponseDTOList(activityService.getActivities(title, description, location, costs, addedBy, weekend, votes)));
+    @GetMapping("/weekend/{weekendId}")
+    public ResponseEntity<List<ActivityResponseDTO>> getActivities( @PathVariable Long weekendId)
+    {
+        return ResponseEntity.ok(ActivityMapper.toResponseDTOList(activityService.findAllByWeekendId(weekendId)));
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Activity>> findById(
+    public ResponseEntity<ActivityResponseDTO> findById(
             @PathVariable Long id) {
 
-        Optional<Activity> responseDTO= activityService.findById(id);
+        Optional<Activity> activityOptional= activityService.findById(id);
+
+        if (activityOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ActivityResponseDTO responseDTO = ActivityMapper.toResponseDTO(activityOptional.get());
 
         return ResponseEntity.ok(responseDTO);
     }

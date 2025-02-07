@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import nl.novi.gettogetherbackend.dtos.UserLoginRequestDTO;
 import nl.novi.gettogetherbackend.services.UserDetailsServiceImpl;
 import nl.novi.gettogetherbackend.models.User;
-import nl.novi.gettogetherbackend.dtos.UserLoginRequestDTO;
 
 import java.util.Map;
 

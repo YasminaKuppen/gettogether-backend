@@ -3,33 +3,37 @@ package nl.novi.gettogetherbackend.dtos;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+// Checked
 
 public class WeekendCreateDTO {
 
     @NotNull(message = "Name cannot be null")
     private String name;
+
     @NotNull(message = "Date cannot be null")
+    @DateTimeFormat
     private Date date;
+
     @NotNull(message = "Time cannot be null")
     private String time;
+
     @NotBlank(message = "Location cannot be empty")
     private String location;
-    private Group group;
 
     private int temperature;
 
     @OneToOne
     private User addedBy;
 
+
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -37,7 +41,6 @@ public class WeekendCreateDTO {
     public Date getDate() {
         return date;
     }
-
     public String getTime() {
         return time;
     }
@@ -45,7 +48,6 @@ public class WeekendCreateDTO {
     public String getLocation() {
         return location;
     }
-
     public int getTemperature() {
         return temperature;
     }
@@ -53,7 +55,6 @@ public class WeekendCreateDTO {
     public void setDate(Date date) {
         this.date = date;
     }
-
     public void setTime(String time) {
         this.time = time;
     }
@@ -61,7 +62,6 @@ public class WeekendCreateDTO {
     public void setLocation(String location) {
         this.location = location;
     }
-
     public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
@@ -71,12 +71,6 @@ public class WeekendCreateDTO {
     }
     public void setAddedBy(User addedBy) {
         this.addedBy = addedBy;
-    }
-    public Group getGroup() {
-        return group;
-    }
-    public void setGroup(Group group) {
-        this.group = group;
     }
 
 }

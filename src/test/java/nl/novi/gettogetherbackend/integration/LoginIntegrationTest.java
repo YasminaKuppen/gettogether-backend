@@ -47,11 +47,13 @@ public class LoginIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        weekendRepository.deleteAll();
-        activityRepository.deleteAll();
-        voteRepository.deleteAll();
         groupRepository.deleteAll();
+        voteRepository.deleteAll();
+        activityRepository.deleteAll();
+        weekendRepository.deleteAll();
         userRepository.deleteAll();
+
+
 
         List<User> testUsers = List.of(
                 new User("Admin",

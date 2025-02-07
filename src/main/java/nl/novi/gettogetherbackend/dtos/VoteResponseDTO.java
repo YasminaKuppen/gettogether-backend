@@ -2,32 +2,32 @@ package nl.novi.gettogetherbackend.dtos;
 
 import nl.novi.gettogetherbackend.models.Activity;
 import nl.novi.gettogetherbackend.models.User;
+import nl.novi.gettogetherbackend.models.Vote;
+
+// Checked
 
 public class VoteResponseDTO {
 
-    private Long id;
-    private User user;
-    private Activity activity;
-    private Integer votes;
+    Long userId;
+    Long activityId;
+    Integer votes;
 
-    public Long getId() {
-        return id;
+    public Long getActivityId() {
+        return activityId;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
-    public User getUser() {
-        return user;
+
+    public Long getUserId() {
+        return userId;
     }
-    public void setUser(User user) {
-        this.user = user;
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
-    public Activity getActivity() {
-        return activity;
-    }
-    public void setActivity(Activity activity) {
-        this.activity = activity;
-    }
+
     public Integer getVotes() {
         return votes;
     }
