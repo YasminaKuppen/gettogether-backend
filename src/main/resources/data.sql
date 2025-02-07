@@ -12,16 +12,16 @@ INSERT INTO public.weekends(name, date, time, location, temperature, added_by)
 VALUES ('Vriendinnen weekend', '10-1-2025', '16.00', 'Den Bosch', '30', 6);
 
 --activities
-INSERT INTO public.activities(weekend_id, title, description, location, costs, added_by)
-VALUES (1, 'Paardrijden', 'Lekker door de duinen rijden', 'Loonse en Drunense duinen', '65', 3),
-       (1, 'Suppen', 'Staand peddelen op een board op het water', 'Scheveningen', '40', 4),
-       (1, 'Bioscoop', 'Naar de nieuwste film', 'VUE Den Bosch', '20', 5),
-       (1, 'Karten', 'Lekker hard scheuren', 'Uden', '35', 6),
-       (1, 'Fietsen', 'De omgeving verkennen te fiets', 'Maastricht', '45', 3),
-       (1, 'Beeldhouwen', 'Is een cursus om een mooi beeld te maken', 'Ravenstein', '120', 4),
-       (1, 'Paintballen', 'Op elkaar schieten met verfballetjes', 'Utrecht', '30', 5),
-       (1, 'Schilderen', 'Cursus bloemen schilderen', 'Deventer', '110', 4),
-       (1, 'Spelletjes spelen', 'Gewoon lekker ouderwetse spelletjes spelen', 'thuis', '0', 4);
+INSERT INTO public.activities(weekend_id, title, description, location, costs)
+VALUES (1, 'Paardrijden', 'Lekker door de duinen rijden', 'Loonse en Drunense duinen', '65'),
+       (1, 'Suppen', 'Staand peddelen op een board op het water', 'Scheveningen', '40'),
+       (1, 'Bioscoop', 'Naar de nieuwste film', 'VUE Den Bosch', '20'),
+       (1, 'Karten', 'Lekker hard scheuren', 'Uden', '35'),
+       (1, 'Fietsen', 'De omgeving verkennen te fiets', 'Maastricht', '45'),
+       (1, 'Beeldhouwen', 'Is een cursus om een mooi beeld te maken', 'Ravenstein', '120'),
+       (1, 'Paintballen', 'Op elkaar schieten met verfballetjes', 'Utrecht', '30'),
+       (1, 'Schilderen', 'Cursus bloemen schilderen', 'Deventer', '110'),
+       (1, 'Spelletjes spelen', 'Gewoon lekker ouderwetse spelletjes spelen', 'thuis', '0');
 
 --groups
 INSERT INTO public.groups (weekend_id)

@@ -1,6 +1,5 @@
 package nl.novi.gettogetherbackend.services;
 
-import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,8 +10,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,7 +31,6 @@ public class UserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
-
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -41,21 +39,9 @@ public class UserService {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
             return true;
-
         } else {
             return false;
         }
-    }
-
-    public List<User> getUsers(
-            Long id,
-            String username,
-            String email,
-            String role
-    ) {
-        List<User> users;
-        users = userRepository.findAll();
-        return users;
     }
 
 }

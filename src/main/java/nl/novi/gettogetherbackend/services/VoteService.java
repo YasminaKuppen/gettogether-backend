@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Service
 public class VoteService {
+
     private final VoteRepository voteRepository;
 
     public VoteService(VoteRepository voteRepository) {
@@ -29,19 +30,20 @@ public class VoteService {
         if (voteRepository.existsById(id)) {
             voteRepository.deleteById(id);
             return true;
-
         } else {
             return false;
         }
     }
 
-    public List<Vote> getVotes(
-            User user,
-            Activity activity,
-            Integer votes
-    ) {
-        List<Vote> getVotes;
-        getVotes = voteRepository.findAll();
-        return getVotes;
+    public void createVote(Long userId, Long activityId) {
+        Optional<Vote> vote = voteRepository.findById(userId);
+        if (vote.isPresent()) {
+            Vote vote1 = vote.get();
+            Vote vote2 = new Vote();
+            vote2.setUserId(userId);
+            vote2.setActivityId(activityId);
+            voteRepository.save(vote2);
+        }
     }
+
 }

@@ -3,29 +3,31 @@ package nl.novi.gettogetherbackend.controllers;
 import jakarta.validation.Valid;
 import nl.novi.gettogetherbackend.dtos.WeekendResponseDTO;
 import nl.novi.gettogetherbackend.dtos.WeekendCreateDTO;
-import nl.novi.gettogetherbackend.dtos.WeekendResponseDTO;
-import nl.novi.gettogetherbackend.mappers.WeekendMapper;
 import nl.novi.gettogetherbackend.mappers.WeekendMapper;
 import nl.novi.gettogetherbackend.models.*;
 import nl.novi.gettogetherbackend.models.Weekend;
+import nl.novi.gettogetherbackend.services.GroupService;
 import nl.novi.gettogetherbackend.services.WeekendService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import nl.novi.gettogetherbackend.repositories.WeekendRepository;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+// Checked
+
 @RestController
 @RequestMapping("/weekends")
 public class WeekendController {
     private final WeekendService weekendService;
+    private final GroupService groupService;
 
-    public WeekendController(WeekendService weekendService) {
+    public WeekendController(WeekendService weekendService, GroupService groupService) {
         this.weekendService = weekendService;
+        this.groupService = groupService;
     }
 
     @PostMapping
@@ -35,7 +37,11 @@ public class WeekendController {
         }
         Weekend weekend = WeekendMapper.toEntity(weekendCreateDTO);
         Weekend savedWeekend = weekendService.save(weekend);
+        Group group = new Group(savedWeekend);
+//        group.setId(savedWeekend.getId());
+        Group savedGroup = groupService.save(group);
         return ResponseEntity.status(HttpStatus.CREATED).body(WeekendMapper.toResponseDTO(savedWeekend));
+
 
     }
 
@@ -49,7 +55,6 @@ public class WeekendController {
             weekend.setTime(weekendDetails.getTime());
             weekend.setLocation(weekendDetails.getLocation());
             weekend.setTemperature(weekendDetails.getTemperature());
-            weekend.setAddedBy(weekendDetails.getAddedBy());
             Weekend updatedWeekend = weekendService.save(weekend);
             return ResponseEntity.ok(WeekendMapper.toResponseDTO(updatedWeekend));
         } else {
@@ -57,16 +62,6 @@ public class WeekendController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteWeekend(@PathVariable Long id) {
-        var result = weekendService.delete(id);
-        if (result) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
     @GetMapping("/{id}")
     public ResponseEntity<WeekendResponseDTO> getWeekendById(@PathVariable Long id) {
         Optional<Weekend> weekendOptional = weekendService.findById(id);
@@ -77,28 +72,6 @@ public class WeekendController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-    
-    
-
-    @GetMapping
-    public ResponseEntity<List<WeekendResponseDTO>> getWeekends(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Date date,
-            @RequestParam(required = false) String time,
-            @RequestParam(required = false) String location,
-            @RequestParam(required = false) Integer temperature,
-            @RequestParam(required = false) User addedBy,
-            @RequestParam(required = false) List<Group> groups,
-            @RequestParam(required = false) List<Activity> activities
-       )
-
-    {
-        // Controleer of temperature null is, zo ja, gebruik een standaardwaarde
-        if (temperature == null) {
-            temperature = 20;  // Of kies een andere standaardwaarde
-        }
-        return ResponseEntity.ok(WeekendMapper.toResponseDTOList(weekendService.getWeekends(name, date, time, location, temperature, addedBy, groups, activities)));
     }
 
 }

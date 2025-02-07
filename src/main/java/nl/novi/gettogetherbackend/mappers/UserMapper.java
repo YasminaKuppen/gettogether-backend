@@ -7,6 +7,7 @@ import nl.novi.gettogetherbackend.models.User;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class UserMapper {
     public static UserResponseDTO toResponseDTO(User user) {
         var result = new UserResponseDTO();
@@ -25,7 +26,6 @@ public class UserMapper {
         user.setRole("USER");
         return user;
     }
-
 
     public static List<UserResponseDTO> toResponseDTOList(List<User> user) {
         return user.stream().map(nl.novi.gettogetherbackend.mappers.UserMapper::toResponseDTO).collect(Collectors.toList());

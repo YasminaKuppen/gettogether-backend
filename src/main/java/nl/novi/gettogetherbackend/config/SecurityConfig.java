@@ -37,17 +37,19 @@ public class SecurityConfig {
 //                                .requestMatchers(HttpMethod.GET, "/activity").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/users").permitAll()
+//                                .requestMatchers(HttpMethod.GET, "/users").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/{id}").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/users/username").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/users/{id}/weekends").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/users/username/{username}").permitAll()
                         //activity:
                                 .requestMatchers(HttpMethod.POST, "/activity").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/activity").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/activity/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/activity/weekend/{weekendId}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/activity/{id}/image").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/activity/{id}/image").permitAll()
                         //weekends:
-                                .requestMatchers(HttpMethod.GET, "/weekends").permitAll()
+//                                .requestMatchers(HttpMethod.GET, "/weekends").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/weekends/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/weekends").permitAll()
                         //vote:
@@ -57,6 +59,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/groups").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/groups/{groupId}/addUser/{userId}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/groups/{groupId}/users").permitAll()
+
 //                        .requestMatchers(HttpMethod.GET, "/activity").hasAnyRole("USER", "ADMIN")
 //                                .requestMatchers(HttpMethod.GET, "/users/{id}\").hasRole("USER")
 //                        // Beveiligde endpoints: Alleen voor admins
@@ -73,7 +76,7 @@ public class SecurityConfig {
 //                                .requestMatchers(HttpMethod.GET, "/weekends/{id}").permitAll()
 //
 //                                // Beveiligde endpoints: voor users en admins
-//                                .requestMatchers(HttpMethod.GET, "/users/{id}").hasAnyRole("USER", "ADMIN")
+    //                                .requestMatchers(HttpMethod.GET, "/users/{id}").hasAnyRole("USER", "ADMIN")
 //                                .requestMatchers(HttpMethod.GET, "/groups/{id}").hasAnyRole("USER", "ADMIN")
 //                                .requestMatchers(HttpMethod.GET, "/weekends").hasAnyRole("USER", "ADMIN")
 //                                .requestMatchers(HttpMethod.POST, "/votes").hasAnyRole("USER", "ADMIN")

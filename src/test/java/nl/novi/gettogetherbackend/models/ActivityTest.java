@@ -62,14 +62,13 @@ class ActivityTest {
         //Arrange
         User user = new User();
         Weekend weekend = new Weekend();
-        Activity activity = new Activity("test", "test", "test", 20F, user, weekend);
+        Activity activity = new Activity("test", "test", "test", 20F, weekend);
 
         //Act
         String titleTest = activity.getTitle();
         String descriptionTest = activity.getDescription();
         String locationTest = activity.getLocation();
         Float costsTest = activity.getCosts();
-        User addedByTest = activity.getAddedBy();
         Weekend weekendTest = activity.getWeekend();
 
         //Assert
@@ -77,7 +76,6 @@ class ActivityTest {
         assertEquals("test", descriptionTest);
         assertEquals("test", locationTest);
         assertEquals(20F, costsTest);
-        assertEquals(user, addedByTest);
         assertEquals(weekend, weekendTest);
 
     }
@@ -92,12 +90,10 @@ class ActivityTest {
         Image image = new Image();
 
         //Act
-        activity.setAddedBy(user);
         activity.setWeekend(weekend);
         activity.setImage(image);
 
         //Assert
-        assertEquals(user, activity.getAddedBy());
         assertEquals(weekend, activity.getWeekend());
         assertEquals(image, activity.getImage());
 

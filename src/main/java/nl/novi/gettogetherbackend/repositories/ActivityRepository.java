@@ -10,5 +10,5 @@ import java.util.List;
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findById(long id);
     List<Activity> findByTitle(String title);
-    List<Activity> findByAddedBy(User addedBy);
+    List<Activity> findByWeekendId(Long weekendId);
 }

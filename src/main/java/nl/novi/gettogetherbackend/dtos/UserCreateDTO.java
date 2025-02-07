@@ -1,5 +1,6 @@
 package nl.novi.gettogetherbackend.dtos;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import nl.novi.gettogetherbackend.models.User;
@@ -8,16 +9,20 @@ public class UserCreateDTO {
 
     @NotBlank(message = "Username cannot be empty")
     private String username;
+
     @Email(message = "Email is not valid")
     private String email;
+
     @NotBlank(message = "Password cannot be empty")
     private String password;
+
     private String role;
+
+    // Getters & Setters
 
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -25,7 +30,6 @@ public class UserCreateDTO {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -33,7 +37,6 @@ public class UserCreateDTO {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -41,8 +44,8 @@ public class UserCreateDTO {
     public String getRole() {
         return role;
     }
-
     public void setRole(String role) {
         this.role = role;
     }
+
 }

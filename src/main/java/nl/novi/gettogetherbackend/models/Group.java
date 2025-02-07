@@ -1,12 +1,18 @@
 package nl.novi.gettogetherbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "groups") // Ensure table name does not conflict with SQL reserved keywords
+@Table(name = "groups")
 public class Group {
 
     @Id
@@ -15,8 +21,11 @@ public class Group {
 
     @ManyToOne
     @JoinColumn(name = "weekend_id", nullable = false)
-    @JsonIgnore
     private Weekend weekend;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToMany
     @JoinTable(
@@ -24,8 +33,17 @@ public class Group {
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users = new HashSet<>(); // A group has multiple users
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     public Group() {}
 
@@ -37,7 +55,6 @@ public class Group {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -45,7 +62,6 @@ public class Group {
     public Weekend getWeekend() {
         return weekend;
     }
-
     public void setWeekend(Weekend weekend) {
         this.weekend = weekend;
     }
@@ -53,11 +69,9 @@ public class Group {
     public Set<User> getUsers() {
         return users;
     }
-
     public void addUser(User user) {
         this.users.add(user);
     }
-
     public void removeUser(User user) {
         this.users.remove(user);
     }

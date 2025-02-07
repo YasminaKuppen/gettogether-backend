@@ -1,9 +1,11 @@
 package nl.novi.gettogetherbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.util.List;
+// Checked
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {
@@ -14,30 +16,28 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "activity_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "activity_id")
     private Activity activity;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(nullable = false)
-    private Integer votes;
+    private int votes;
 
     public Vote() {}
 
-    public Vote(Activity activity, User user) {
+    public Vote(Activity activity, User user, int votes) {
         this.activity = activity;
         this.user = user;
+        this.votes = votes;
     }
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -48,17 +48,34 @@ public class Vote {
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
+
     public User getUser() {
         return user;
     }
     public void setUser(User user) {
         this.user = user;
     }
-    public Integer getVotes() {
+
+    public int getVotes() {
         return votes;
     }
-    public void setVotes(Integer votes) {
+    public void setVotes(int votes) {
         this.votes = votes;
     }
 
+    public Long getUserId() {
+        return user.getId();
+    }
+
+    public void setUserId(Long userId) {
+        this.user.setId(userId);
+    }
+
+    public void setActivityId(Long activityId) {
+        this.activity.setId(activityId);
+    }
+
+    public Long getActivityId() {
+        return activity.getId();
+    }
 }

@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Checked
+
 @Service
 public class ActivityService {
+
     private final ActivityRepository activityRepository;
-
     private final ImageRepository imageRepository;
-
     private final ImageService imageService;
 
     public ActivityService(ActivityRepository activityRepository, ImageRepository imageRepository, ImageService imageService) {
@@ -32,36 +33,18 @@ public class ActivityService {
     public Optional<Activity> findById(Long id) {
         return activityRepository.findById(id);
     }
+    public List<Activity> findAll() {return activityRepository.findAll();}
+    public List<Activity> findAllByWeekendId(Long weekendId) {return activityRepository.findByWeekendId(weekendId);}
 
     public boolean delete(long id) {
         if (activityRepository.existsById(id)) {
            activityRepository.deleteById(id);
             return true;
-
         } else {
             return false;
         }
     }
 
-    public List<Activity> getActivities(
-            String title,
-            String description,
-            String location,
-            Float costs,
-            User addedBy,
-            Weekend weekend,
-            List<Vote> votes
-    ) {
-        List<Activity> activities;
-        if (title != null) {
-            activities = activityRepository.findByTitle(title);
-        } else if (addedBy != null) {
-            activities = activityRepository.findByAddedBy(addedBy);
-        } else {
-            activities = activityRepository.findAll();
-        }
-        return activities;
-    }
     // add image
     @Transactional
     public Activity addImageToActivity(String filename, Long activityNumber) {
