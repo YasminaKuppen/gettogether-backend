@@ -37,9 +37,12 @@ public class WeekendController {
         }
         Weekend weekend = WeekendMapper.toEntity(weekendCreateDTO);
         Weekend savedWeekend = weekendService.save(weekend);
+
+        // Create new group for the new weekend with creator as member:
         Group group = new Group(savedWeekend);
-//        group.setId(savedWeekend.getId());
-        Group savedGroup = groupService.save(group);
+        group.addUser(savedWeekend.getAddedBy());
+        groupService.save(group);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(WeekendMapper.toResponseDTO(savedWeekend));
 
 

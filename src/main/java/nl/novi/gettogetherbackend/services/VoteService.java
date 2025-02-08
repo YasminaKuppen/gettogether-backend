@@ -35,15 +35,15 @@ public class VoteService {
         }
     }
 
-    public void createVote(Long userId, Long activityId) {
-        Optional<Vote> vote = voteRepository.findById(userId);
-        if (vote.isPresent()) {
-            Vote vote1 = vote.get();
-            Vote vote2 = new Vote();
-            vote2.setUserId(userId);
-            vote2.setActivityId(activityId);
-            voteRepository.save(vote2);
-        }
-    }
+//    public void createVote(Long userId, Long activityId) {
+//        Optional<Vote> vote = voteRepository.findById(userId);
+//        if (vote.isPresent()) {
+//            Vote vote1 = vote.get();
+//            Vote vote2 = new Vote();
+//            vote2.setUserId(userId);
+//            vote2.setActivityId(activityId);
+//            voteRepository.save(vote2);
+//        }
+//    }
 
 }

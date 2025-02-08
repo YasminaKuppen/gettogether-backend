@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 public class WeekendService {
 
     private final WeekendRepository weekendRepository;
-    private final GroupRepository groupRepository;
+    private final GroupService groupService;
 
-    public WeekendService(WeekendRepository weekendRepository, GroupRepository groupRepository) {
+    public WeekendService(WeekendRepository weekendRepository, GroupService groupService) {
         this.weekendRepository = weekendRepository;
-        this.groupRepository = groupRepository;
+        this.groupService = groupService;
     }
 
     public Weekend save(Weekend weekend) {
@@ -39,7 +39,7 @@ public class WeekendService {
     }
 
     public List<Weekend> getUserWeekends(Long userId) {
-        List<Group> groups = groupRepository.findByUsers_Id(userId);
+        List<Group> groups = groupService.findByUser_id(userId);
         return groups.stream()
                 .map(Group::getWeekend)
                 .collect(Collectors.toList());

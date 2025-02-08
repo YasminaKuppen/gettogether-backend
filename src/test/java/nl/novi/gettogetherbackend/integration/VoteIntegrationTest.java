@@ -44,10 +44,6 @@ public class VoteIntegrationTest {
     @Autowired
     WeekendRepository weekendRepository;
 
-    private Long userId;
-    private Long activityId;
-    private Long groupId;
-    private Long weekendId;
 
     @BeforeEach
     void setUp() {
@@ -75,14 +71,12 @@ public class VoteIntegrationTest {
                 "Spring Boot",
                 20,
                 user);
-        weekend = weekendRepository.save(weekend);
-        weekendId = weekend.getId();  // Save the ID
+        weekendRepository.save(weekend);
+
 
         // Create and save Group
-        Group group = new Group(weekend);
-        group.addUser(user);
-        group = groupRepository.save(group);
-        groupId = group.getId();  // Save the ID
+        Group group = new Group(weekend, user);
+        groupRepository.save(group);
 
         // Create and save Activity
         Activity testActivity = new Activity(
@@ -91,24 +85,20 @@ public class VoteIntegrationTest {
                 "Manege",
                 39.95F,
                 weekend);
-        testActivity = activityRepository.save(testActivity);
-        activityId = testActivity.getId();  // Save the ID
-        System.out.println(testActivity.getId());
+        activityRepository.save(testActivity);
     }
 
     @Test
     void testVote() throws Exception {
-        // JSON payload for creating the vote using the actual IDs
         String voteRequest = """
                 {
                     "activityId": 10,
                     "userId": 7
                 }""";
 
-        // Perform the POST request and assert the response
         mockMvc.perform(post("/votes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(voteRequest))
-                .andExpect(status().isCreated());  // Check if response is 201
+                .andExpect(status().isCreated());
     }
 }

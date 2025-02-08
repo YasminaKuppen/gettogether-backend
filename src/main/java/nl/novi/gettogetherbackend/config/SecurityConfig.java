@@ -32,31 +32,25 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 // Publieke endpoints
                                 .requestMatchers("/api-docs/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-//                        .requestMatchers("/login").permitAll() //aanpassing
-                        //users:
-//                                .requestMatchers(HttpMethod.GET, "/activity").hasRole("ADMIN")
+                        //login:
                                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        //users:
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/users").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/{id}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/{id}/weekends").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/username/{username}").permitAll()
                         //activity:
                                 .requestMatchers(HttpMethod.POST, "/activity").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/activity").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/activity/{id}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/activity/weekend/{weekendId}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/activity/{id}/image").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/activity/{id}/image").permitAll()
                         //weekends:
-//                                .requestMatchers(HttpMethod.GET, "/weekends").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/weekends/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/weekends").permitAll()
                         //vote:
-                                .requestMatchers(HttpMethod.GET, "/votes").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/votes").permitAll()
                         //groups:
-                                .requestMatchers(HttpMethod.GET, "/groups").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/groups/{groupId}/addUser/{userId}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/groups/{groupId}/users").permitAll()
 

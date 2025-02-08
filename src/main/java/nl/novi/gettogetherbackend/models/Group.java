@@ -23,9 +23,9 @@ public class Group {
     @JoinColumn(name = "weekend_id", nullable = false)
     private Weekend weekend;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @ManyToMany
     @JoinTable(
@@ -36,19 +36,20 @@ public class Group {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users = new HashSet<>(); // A group has multiple users
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
 
     public Group() {}
 
     public Group(Weekend weekend) {
         this.weekend = weekend;
+//        this.user = user;
     }
 
     // Getters and Setters

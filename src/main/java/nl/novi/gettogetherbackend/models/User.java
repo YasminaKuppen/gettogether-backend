@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @ColumnDefault("USER")
     private String role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
     private Set<Group> groups = new HashSet<>();
 
 

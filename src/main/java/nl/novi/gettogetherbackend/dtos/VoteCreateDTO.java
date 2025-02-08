@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class VoteCreateDTO {
 
-    @NotNull(message = "User required")
+//    @NotNull(message = "User required")
     private Long userId;
 
-    @NotNull(message = "Activity required")
+//    @NotNull(message = "Activity required")
     private Long  activityId;
 
     private int votes;

@@ -88,14 +88,6 @@ public class UserController {
         }
     }
 
-//
-//    @GetMapping("/{userId}/weekends")
-//    public ResponseEntity<List<Weekend>> getUserWeekends(@PathVariable Long userId) {
-//        List<Weekend> weekends = weekendService.getUserWeekends(userId);
-//        return ResponseEntity.ok(weekends);
-//    }
-
-
     @GetMapping("/{userId}/weekends")
     public ResponseEntity<List<WeekendResponseDTO>> getUserWeekends(@PathVariable Long userId) {
         List<Weekend> weekends = weekendService.getUserWeekends(userId);

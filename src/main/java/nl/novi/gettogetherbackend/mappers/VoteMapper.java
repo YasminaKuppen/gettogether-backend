@@ -23,7 +23,7 @@ public class VoteMapper {
     public static Vote toEntity(VoteCreateDTO voteCreateDTO, UserRepository userRepository, ActivityRepository activityRepository) {
         Vote vote = new Vote();
         vote.setUser(userRepository.findById(voteCreateDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found")));
-        vote.setActivity(activityRepository.findById(voteCreateDTO.getActivityId()).orElseThrow(() -> new RuntimeException("User not found")));
+        vote.setActivity(activityRepository.findById(voteCreateDTO.getActivityId()).orElseThrow(() -> new RuntimeException("Activity not found")));
         vote.setVotes(1);
         return vote;
     }

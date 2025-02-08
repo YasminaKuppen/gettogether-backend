@@ -3,11 +3,13 @@ package nl.novi.gettogetherbackend.dtos;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import nl.novi.gettogetherbackend.models.User;
 
 public class UserCreateDTO {
 
     @NotBlank(message = "Username cannot be empty")
+    @Pattern(regexp = "^[^\\s]+$", message = "Username must not contain spaces")
     private String username;
 
     @Email(message = "Email is not valid")

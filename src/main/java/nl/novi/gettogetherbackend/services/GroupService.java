@@ -23,6 +23,7 @@ public class GroupService {
     public Optional<Group> findById(Long id) {
         return groupRepository.findById(id);
     }
+    public List<Group> findByUser_id(Long id) {return groupRepository.findByUsers_Id(id);}
 
     public boolean delete(Long id) {
         if (groupRepository.existsById(id)) {

@@ -88,7 +88,7 @@ public class ActivityController {
 
     //upload
     @PostMapping("/{id}/image")
-    public ResponseEntity<Activity> addImageToActivity(@PathVariable("id") Long activityId,
+    public ResponseEntity<String> addImageToActivity(@PathVariable("id") Long activityId,
                                                      @RequestParam("file") MultipartFile file                                    )
             throws IOException {
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -99,7 +99,7 @@ public class ActivityController {
         String fileName = imageService.storeImage(file, activityId);
         Activity activity = activityService.addImageToActivity(fileName, activityId);
 
-        return ResponseEntity.created(URI.create(url)).body(activity);
+        return ResponseEntity.created(URI.create(url)).body("Image uploaded successfully for activity ID: " + activityId);
 
     }
 
