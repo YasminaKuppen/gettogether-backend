@@ -1,6 +1,5 @@
 package nl.novi.gettogetherbackend.models;
 
-import org.checkerframework.common.aliasing.qual.Unique;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;

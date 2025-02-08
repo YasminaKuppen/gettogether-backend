@@ -4,9 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import nl.novi.gettogetherbackend.dtos.ActivityCreateDTO;
 import nl.novi.gettogetherbackend.models.Activity;
-import nl.novi.gettogetherbackend.models.User;
-import nl.novi.gettogetherbackend.models.Vote;
-import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.services.ActivityService;
 import nl.novi.gettogetherbackend.services.ImageService;
 import org.springframework.core.io.Resource;
@@ -31,7 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-// Checked
 
 @RestController
 @RequestMapping("/activity")

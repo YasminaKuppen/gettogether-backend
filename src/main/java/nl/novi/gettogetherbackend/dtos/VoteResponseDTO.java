@@ -1,11 +1,5 @@
 package nl.novi.gettogetherbackend.dtos;
 
-import nl.novi.gettogetherbackend.models.Activity;
-import nl.novi.gettogetherbackend.models.User;
-import nl.novi.gettogetherbackend.models.Vote;
-
-// Checked
-
 public class VoteResponseDTO {
 
     Long userId;

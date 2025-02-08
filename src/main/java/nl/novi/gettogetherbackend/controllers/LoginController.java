@@ -1,6 +1,5 @@
 package nl.novi.gettogetherbackend.controllers;
 
-import com.fasterxml.jackson.core.type.WritableTypeId;
 import nl.novi.gettogetherbackend.security.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,9 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import nl.novi.gettogetherbackend.dtos.UserLoginRequestDTO;
 import nl.novi.gettogetherbackend.services.UserDetailsServiceImpl;
 import nl.novi.gettogetherbackend.models.User;
@@ -38,52 +35,56 @@ public class LoginController {
                 new UsernamePasswordAuthenticationToken(userLoginRequestDTO.getUserName(), userLoginRequestDTO.getPassword());
 
         try {
-            // Authenticate the user
             Authentication auth = authManager.authenticate(up);
 
-            // Use the UserDetailsService to load the user's details (including the user ID)
             UserDetails userDetails = userDetailsService.loadUserByUsername(userLoginRequestDTO.getUserName());
 
-            // Cast to User to get the user ID
-            User user = (User) userDetails; // Since User implements UserDetails
-            Long userId = user.getId();  // Get the user ID from the User entity
-
-            // Generate the JWT token
+            User user = (User) userDetails;
+            Long userId = user.getId();
             String token = jwtService.generateToken(userDetails);
 
-            // Respond with the token and user ID
             return ResponseEntity.ok(
                     Map.of(
                             "message", "Token generated",
                             "token", token,
-                            "userId", String.valueOf(userId)  // Include the user ID in the response
+                            "userId", String.valueOf(userId)
                     )
             );
         } catch (AuthenticationException ex) {
-            // JSON-response bij fout
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("message", "Invalid username or password"));
         }
     }
 
-//origineel
-//    @PostMapping("/login")
-//    public ResponseEntity<String> signIn(@RequestBody UserLoginRequestDTO userLoginRequestDTO
-//    ) {
-//        UsernamePasswordAuthenticationToken up =
-//                new UsernamePasswordAuthenticationToken(userLoginRequestDTO.getUserName(), userLoginRequestDTO.getPassword());
-//
-//        try {
-//            Authentication auth = authManager.authenticate(up);
-//
-//            var ud = (UserDetails) auth.getPrincipal();
-//            String token = jwtService.generateToken(ud);
-//
-//            return ResponseEntity.ok()
-//                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-//                    .body("Token generated");
-//        } catch (AuthenticationException ex) {
-//            return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
-//        }
-//    }
+    @GetMapping("/validate-token")
+    public ResponseEntity<Map<String, String>> validateToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Missing or invalid token"));
+        }
+
+        try {
+            String token = authHeader.substring(7);
+            String username = jwtService.extractUsername(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            User user = (User) userDetails;
+
+            if (jwtService.validateToken(token)) {
+                return ResponseEntity.ok(
+                        Map.of(
+                                "message", "Token is valid",
+                                "token", token,
+                                "userId", String.valueOf(user.getId())
+                        )
+                );
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("message", "Invalid token"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "Token validation failed"));
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ VALUES ('admin', '$2a$10$8T3ol9KA/UD7kIA5g0tYwuSy3H9G8BhviFQnPa29Kqx9LHq4tqNwS',
 
 --weekends
 INSERT INTO public.weekends(name, date, time, location, temperature, added_by)
-VALUES ('Vriendinnen weekend', '10-1-2025', '16.00', 'Den Bosch', '30', 6);
+VALUES ('Vriendinnen weekend', '10-1-2025', '16.00', 'Den Bosch', '30', 1);
 
 --activities
 INSERT INTO public.activities(weekend_id, title, description, location, costs)
@@ -24,8 +24,8 @@ VALUES (1, 'Paardrijden', 'Lekker door de duinen rijden', 'Loonse en Drunense du
        (1, 'Spelletjes spelen', 'Gewoon lekker ouderwetse spelletjes spelen', 'thuis', '0');
 
 --groups
-INSERT INTO public.groups (weekend_id)
-VALUES (1);
+INSERT INTO public.groups (id, weekend_id)
+VALUES (1, 1);
 
 --group_users
 INSERT INTO group_users (group_id, user_id)

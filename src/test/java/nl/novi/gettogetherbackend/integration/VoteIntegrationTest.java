@@ -14,11 +14,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ContextConfiguration(classes = GettogetherBackendApplication.class)
@@ -47,22 +47,12 @@ public class VoteIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        // Clean up previous data
-        groupRepository.deleteAll();
-        voteRepository.deleteAll();
-        activityRepository.deleteAll();
-        weekendRepository.deleteAll();
-        userRepository.deleteAll();
 
-        // Create and save User
-        User user = new User("Yasmina",
+        User user = new User("TestUser",
                 "yasmina@gettogether.nl",
                 "$2a$10$d3u1KzyI93enqnsfRdZ3iuIZvbyvEeP94aIHhNAMSyisGt3sCgAUu");
         user = userRepository.save(user);
-        System.out.println(user.getId());
 
-
-        // Create and save Weekend
         Date date = new Date(2025, 12, 3);
         Weekend weekend = new Weekend(
                 "test",
@@ -73,12 +63,10 @@ public class VoteIntegrationTest {
                 user);
         weekendRepository.save(weekend);
 
-
-        // Create and save Group
-        Group group = new Group(weekend, user);
+        Group group = new Group(weekend);
+        group.setId(weekend.getId());
         groupRepository.save(group);
 
-        // Create and save Activity
         Activity testActivity = new Activity(
                 "Paardrijden",
                 "Rijden op een paard",
@@ -90,10 +78,21 @@ public class VoteIntegrationTest {
 
     @Test
     void testVote() throws Exception {
+
+        Optional<User> optionalUser = userRepository.findByUsername("TestUser");
+        User user = optionalUser.get();
+        Long userId = user.getId();
+
+        List<Activity> listActivity = activityRepository.findAll();
+        int cnt = listActivity.size();
+        Long activityId = listActivity.get(cnt-1).getId();
+
+
         String voteRequest = """
                 {
-                    "activityId": 10,
-                    "userId": 7
+                    "activityId": """+activityId+"""
+                    ,
+                    "userId": """+userId+"""
                 }""";
 
         mockMvc.perform(post("/votes")

@@ -6,8 +6,6 @@ import nl.novi.gettogetherbackend.models.Vote;
 import nl.novi.gettogetherbackend.repositories.ActivityRepository;
 import nl.novi.gettogetherbackend.repositories.UserRepository;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class VoteMapper {
 
@@ -28,8 +26,4 @@ public class VoteMapper {
         return vote;
     }
 
-
-//    public static List<VoteResponseDTO> toResponseDTOList(List<Vote> vote) {
-//        return vote.stream().map(VoteMapper::toResponseDTO).collect(Collectors.toList());
-//    }
 }

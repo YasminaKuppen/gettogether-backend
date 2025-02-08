@@ -6,17 +6,14 @@ import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.repositories.GroupRepository;
 import nl.novi.gettogetherbackend.repositories.UserRepository;
-import nl.novi.gettogetherbackend.services.GroupService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// Checked
 
 @RestController
 @RequestMapping("/groups")
@@ -30,7 +27,7 @@ public class GroupController {
         this.userRepository = userRepository;
     }
 
-    // Bad
+
     @GetMapping("/{groupId}/users")
     public ResponseEntity<Set<UserResponseDTO>> getUsersInGroup(@PathVariable Long groupId) {
         Optional<Group> optionalGroup = groupRepository.findById(groupId);
@@ -45,7 +42,7 @@ public class GroupController {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
-    // Good
+
     @PostMapping("/{groupId}/addUser/{userId}")
     public ResponseEntity<String> addUserToGroup(
             @PathVariable Long groupId, @PathVariable Long userId
@@ -59,7 +56,6 @@ public class GroupController {
         Group group = optionalGroup.get();
         User user = optionalUser.get();
 
-        // Add user to group
         group.addUser(user);
         groupRepository.save(group);
 

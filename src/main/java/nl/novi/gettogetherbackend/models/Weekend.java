@@ -1,17 +1,13 @@
 package nl.novi.gettogetherbackend.models;
 
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// Checked
 
 @Entity
 @Table(name = "weekends")

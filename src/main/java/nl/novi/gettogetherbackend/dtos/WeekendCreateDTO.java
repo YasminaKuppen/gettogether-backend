@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-// Checked
 
 public class WeekendCreateDTO {
 

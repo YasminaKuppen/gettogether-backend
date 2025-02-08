@@ -2,9 +2,7 @@ package nl.novi.gettogetherbackend.controllers;
 
 import jakarta.validation.Valid;
 import nl.novi.gettogetherbackend.dtos.VoteCreateDTO;
-import nl.novi.gettogetherbackend.mappers.UserMapper;
 import nl.novi.gettogetherbackend.mappers.VoteMapper;
-import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.models.Vote;
 import nl.novi.gettogetherbackend.repositories.ActivityRepository;
 import nl.novi.gettogetherbackend.repositories.UserRepository;
@@ -12,10 +10,8 @@ import nl.novi.gettogetherbackend.services.VoteService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-// Checked
 
 @RestController
 @RequestMapping("/votes")
@@ -32,7 +28,7 @@ public class VoteController {
 
     @PostMapping()
     public ResponseEntity<String> createVote(@Valid @RequestBody VoteCreateDTO voteCreateDTO) {
-        try{
+        try {
             Vote vote = VoteMapper.toEntity(voteCreateDTO, userRepository, activityRepository);
             voteService.save(vote);
             return ResponseEntity.status(HttpStatus.CREATED).body("Vote cast succesfully.");

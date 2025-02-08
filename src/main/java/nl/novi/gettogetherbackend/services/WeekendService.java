@@ -2,7 +2,6 @@ package nl.novi.gettogetherbackend.services;
 
 import nl.novi.gettogetherbackend.models.Group;
 import nl.novi.gettogetherbackend.models.Weekend;
-import nl.novi.gettogetherbackend.repositories.GroupRepository;
 import nl.novi.gettogetherbackend.repositories.WeekendRepository;
 import org.springframework.stereotype.Service;
 

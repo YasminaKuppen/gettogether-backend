@@ -1,7 +1,6 @@
 package nl.novi.gettogetherbackend.repositories;
 
 import nl.novi.gettogetherbackend.models.Activity;
-import nl.novi.gettogetherbackend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -1,14 +1,11 @@
 package nl.novi.gettogetherbackend.controllers;
 
 import jakarta.validation.Valid;
-import nl.novi.gettogetherbackend.dtos.ActivityResponseDTO;
 import nl.novi.gettogetherbackend.dtos.UserCreateDTO;
 import nl.novi.gettogetherbackend.dtos.UserResponseDTO;
 import nl.novi.gettogetherbackend.dtos.WeekendResponseDTO;
-import nl.novi.gettogetherbackend.mappers.ActivityMapper;
 import nl.novi.gettogetherbackend.mappers.UserMapper;
 import nl.novi.gettogetherbackend.mappers.WeekendMapper;
-import nl.novi.gettogetherbackend.models.Activity;
 import nl.novi.gettogetherbackend.models.User;
 import nl.novi.gettogetherbackend.models.Weekend;
 import nl.novi.gettogetherbackend.services.UserService;
@@ -22,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// Checked
 
 @RestController
 @RequestMapping("/users")
@@ -69,7 +65,6 @@ public class UserController {
             UserResponseDTO userResponseDTO = UserMapper.toResponseDTO(user);
             return ResponseEntity.ok(userResponseDTO);
         } else {
-            // Als de gebruiker niet wordt gevonden, geef dan een 404 Not Found terug
             return ResponseEntity.notFound().build();
         }
     }
@@ -83,7 +78,6 @@ public class UserController {
             UserResponseDTO userResponseDTO = UserMapper.toResponseDTO(user);
             return ResponseEntity.ok(userResponseDTO);
         } else {
-            // Als de gebruiker niet wordt gevonden, geef dan een 404 Not Found terug
             return ResponseEntity.notFound().build();
         }
     }
@@ -92,14 +86,12 @@ public class UserController {
     public ResponseEntity<List<WeekendResponseDTO>> getUserWeekends(@PathVariable Long userId) {
         List<Weekend> weekends = weekendService.getUserWeekends(userId);
 
-        // Map each Weekend entity to WeekendResponseDTO
         List<WeekendResponseDTO> responseDTOs = weekends.stream()
                 .map(WeekendMapper::toResponseDTO)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(responseDTOs);
     }
-
 
 
 }

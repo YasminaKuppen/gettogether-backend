@@ -2,8 +2,6 @@ package nl.novi.gettogetherbackend.models;
 
 import jakarta.persistence.*;
 
-// Checked
-
 @Entity
 @Table(name = "images")
 public class Image {

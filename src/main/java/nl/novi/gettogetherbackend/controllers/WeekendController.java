@@ -13,11 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
-// Checked
 
 @RestController
 @RequestMapping("/weekends")
@@ -38,8 +35,8 @@ public class WeekendController {
         Weekend weekend = WeekendMapper.toEntity(weekendCreateDTO);
         Weekend savedWeekend = weekendService.save(weekend);
 
-        // Create new group for the new weekend with creator as member:
         Group group = new Group(savedWeekend);
+        group.setId(savedWeekend.getId());
         group.addUser(savedWeekend.getAddedBy());
         groupService.save(group);
 

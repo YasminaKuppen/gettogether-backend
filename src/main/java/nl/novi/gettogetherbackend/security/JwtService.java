@@ -43,7 +43,7 @@ public class JwtService {
     public List<GrantedAuthority> extractRoles(String token) {
         final Claims claims = extractAllClaims(token);
         List<String> roles = claims.get(ROLES_CLAIMS_NAME, List.class);
-        if (roles == null) return Collections.emptyList(); // Geen rollen gevonden, retourneer lege lijst
+        if (roles == null) return Collections.emptyList();
         return roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());

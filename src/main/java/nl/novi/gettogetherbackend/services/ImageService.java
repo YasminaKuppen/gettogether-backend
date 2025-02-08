@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
-// Checked
 
 @Service
 public class ImageService {

@@ -1,11 +1,5 @@
 package nl.novi.gettogetherbackend.dtos;
 
-import nl.novi.gettogetherbackend.models.User;
-import nl.novi.gettogetherbackend.models.Vote;
-import nl.novi.gettogetherbackend.models.Weekend;
-
-import java.util.List;
-
 public class ActivityResponseDTO {
 
 
@@ -19,6 +13,7 @@ public class ActivityResponseDTO {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -26,6 +21,7 @@ public class ActivityResponseDTO {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -33,6 +29,7 @@ public class ActivityResponseDTO {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -40,6 +37,7 @@ public class ActivityResponseDTO {
     public String getLocation() {
         return location;
     }
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -47,6 +45,7 @@ public class ActivityResponseDTO {
     public Float getCosts() {
         return costs;
     }
+
     public void setCosts(Float costs) {
         this.costs = costs;
     }
@@ -54,6 +53,7 @@ public class ActivityResponseDTO {
     public int getVoteCount() {
         return voteCount;
     }
+
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
